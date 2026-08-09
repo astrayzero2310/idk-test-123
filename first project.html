@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>💕Happy Birthday Baby Luna!💕</title>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                min-height: 100vh;
+                min-width: 1200px;
+                background-color: #a8d8ff;
+                color: #16283a;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .hero {
+                position: relative;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 40px;
+                overflow: hidden;
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                max-width: 1300px;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                animation: fadeSlideIn 1.8s ease-out 0.25s 1 normal forwards, floatTitle 4s ease-in-out 2.25s infinite alternate forwards;
+                animation-fill-mode: forwards;
+                opacity: 0;
+                transform: translateY(30px);
+                font-size: clamp(3rem, 6vw, 5rem);
+                margin-bottom: 20px;
+                will-change: opacity, transform;
+            }
+
+            .floating-hearts {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                overflow: hidden;
+                z-index: 1;
+            }
+
+            .floating-hearts .heart {
+                position: absolute;
+                top: -40px;
+                font-size: 2.5rem;
+                opacity: 0.9;
+                animation: fallHeart linear infinite;
+                will-change: transform, opacity;
+            }
+
+            .floating-hearts .heart:nth-child(1) { left: 8%; animation-duration: 6.5s; animation-delay: 0s; }
+            .floating-hearts .heart:nth-child(2) { left: 22%; animation-duration: 7.2s; animation-delay: 0.8s; }
+            .floating-hearts .heart:nth-child(3) { left: 40%; animation-duration: 6s; animation-delay: 1.4s; }
+            .floating-hearts .heart:nth-child(4) { left: 58%; animation-duration: 7.5s; animation-delay: 0.4s; }
+            .floating-hearts .heart:nth-child(5) { left: 82%; animation-duration: 5.8s; animation-delay: 1.1s; }
+
+            .cta-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.95rem 1.8rem;
+                border-radius: 999px;
+                background: #0c6cf5;
+                color: #fff;
+                text-decoration: none;
+                font-weight: 600;
+                box-shadow: 0 18px 40px rgba(12, 108, 245, 0.22);
+                animation: pulseButton 2.5s ease-in-out infinite;
+            }
+
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 20px;
+                align-items: stretch;
+                margin-top: 24px;
+            }
+
+            .photo-card {
+                width: 100%;
+                animation: floatPhoto 8s ease-in-out infinite;
+            }
+
+            .photo-card:nth-child(odd) {
+                animation-duration: 7s;
+            }
+
+            .photo-card:nth-child(even) {
+                animation-duration: 9s;
+                animation-delay: 1s;
+            }
+
+            .photo-card:hover {
+                transform: translateY(-6px);
+            }
+
+            .photo-container {
+                width: 100%;
+                aspect-ratio: 4 / 3;
+                overflow: hidden;
+                border-radius: 18px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+                transition: transform 0.4s ease;
+            }
+
+            .photo-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .message-toggle {
+                display: none;
+            }
+
+            .envelope {
+                display: block;
+                margin: 40px auto 30px;
+                width: 420px;
+                height: 220px;
+                padding: 24px;
+                background: linear-gradient(135deg, #4a8cff, #1a5bff);
+                border: 2px solid #1f5cff;
+                border-radius: 24px;
+                box-shadow: 0 28px 60px rgba(0, 0, 0, 0.2);
+                color: #ffffff;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                cursor: pointer;
+                position: relative;
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+                overflow: hidden;
+            }
+
+            .envelope:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 32px 70px rgba(0, 0, 0, 0.24);
+            }
+
+            .envelope::before,
+            .envelope::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                transition: transform 0.4s ease;
+            }
+
+            .envelope::before {
+                top: 0;
+                background: rgba(255, 255, 255, 0.22);
+                clip-path: polygon(0 0, 50% 48%, 100% 0, 100% 100%, 0 100%);
+                transform-origin: top center;
+                z-index: 2;
+            }
+
+            .envelope::after {
+                top: 0;
+                background: rgba(255, 255, 255, 0.15);
+                clip-path: polygon(0 100%, 50% 50%, 100% 100%, 100% 100%, 0 100%);
+                transform-origin: top center;
+                transform: translateY(2px);
+                z-index: 2;
+            }
+
+            .envelope .paper {
+                position: absolute;
+                left: 50%;
+                bottom: 18px;
+                width: 84%;
+                height: 78px;
+                background: #ffffff;
+                border-radius: 18px;
+                border: 1px solid rgba(15, 86, 202, 0.12);
+                box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+                transform: translate(-50%, 40px);
+                opacity: 0;
+                transition: transform 0.7s ease 0.15s, opacity 0.4s ease 0.15s;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #1a5bff;
+                font-weight: 700;
+                letter-spacing: 0.03em;
+                font-size: 1rem;
+                text-transform: uppercase;
+            }
+
+            .envelope .paper::before {
+                content: '';
+                position: absolute;
+                top: 14px;
+                left: 14px;
+                right: 14px;
+                height: 2px;
+                background: rgba(15, 86, 202, 0.2);
+                border-radius: 999px;
+            }
+
+            .message-toggle:checked + .envelope {
+                background: linear-gradient(135deg, #6fa9ff, #3a6dff);
+            }
+
+            .message-toggle:checked + .envelope .paper {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+
+            .message-toggle:checked + .envelope::before {
+                transform: translateY(-90px) scaleY(0.95);
+            }
+
+            .message-toggle:checked + .envelope::after {
+                transform: translateY(-40px) scaleY(0.95);
+            }
+
+            .message-card {
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transform: translateY(-50px);
+                margin-top: -28px;
+                transition: max-height 0.55s ease 0.15s, opacity 0.55s ease 0.15s, transform 0.55s ease 0.15s, margin-top 0.55s ease 0.15s;
+            }
+
+            .message-toggle:checked + .envelope + .message-card {
+                max-height: 1200px;
+                opacity: 1;
+                transform: translateY(0);
+                margin-top: 0;
+            }
+
+            .letter-sheet {
+                background: #ffffff;
+                border-radius: 24px;
+                padding: 30px 28px;
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+                border: 1px solid rgba(15, 86, 202, 0.08);
+                transform: translateY(-40px);
+                opacity: 0;
+                transition: transform 0.55s ease 0.15s, opacity 0.45s ease 0.15s;
+            }
+
+            .message-toggle:checked + .envelope + .message-card .letter-sheet {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .message-title {
+                margin-top: 0;
+                margin-bottom: 18px;
+            }
+
+            .message-content {
+                display: block;
+                opacity: 1;
+                margin-top: 0;
+            }
+
+            .message-text {
+                margin: 0 0 16px;
+                line-height: 1.8;
+                color: #1b365b;
+            }
+
+            .message-hearts {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            @keyframes fadeSlideIn {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fallHeart {
+                0% {
+                    transform: translateY(-10vh) rotate(0deg);
+                    opacity: 0.6;
+                }
+                75% {
+                    opacity: 0.9;
+                }
+                100% {
+                    transform: translateY(110vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes pulseButton {
+                0%, 100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+            }
+
+            @keyframes floatPhoto {
+                0%, 100% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+
+            @keyframes floatTitle {
+                0% {
+                    transform: translateY(0);
+                }
+                100% {
+                    transform: translateY(-10px);
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=dancing+script;wght@400;600;700&family=poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="icon" href="FB_IMG_1786166697128.jpg" type="image/jpg">
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="scramble text" id="scramble-text">Happy Birthday Baby Luna!💕</h1>
+            <p class="subtitle fade-in">A special day where we celebrate you and the joy and comfort you bring to both me(ferg) and rose:> </p>
+           <div class="floating-hearts">
+            <div class="heart">💙</div>
+            <div class="heart">💖</div>
+            <div class="heart">💙</div>
+            <div class="heart">💗</div>
+            <div class="heart">💙</div>
+        </div>
+        <a class="cta-button" href="#gallery">
+             Start the Celebration!🎊
+        </a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Our Trio Memories</h2>
+            <div class="gallery-grid">
+              <div class="photo-card" data-aos="fade-up" data-delay="100">
+                 <div class="photo-container">
+                    <img src="Videos/Captures/630199666_3827816230687326_4278447337010128294_n.jpg"
+                        alt="idk moment">
+                    <div class="photo-overlay">
+                        <div class="photo-caption">A beautiful moment of us</div>
+                        <button class="like-btn">
+                             <span class="heart-icon">💙</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-card" data-aos="fade-up" data-delay="200">
+                <div class="photo-container">
+                    <img src="Videos/Captures/768662486_1629811385230419_8111240141958029168_n.jpg"
+                        alt="happy moment">
+                    <div class="photo-overlay">
+                        <div class="photo-caption">Night swimming</div>
+                        <button class="like-btn">
+                            <span class="heart-icon">💖</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-card" data-aos="fade-up" data-delay="300">
+                <div class="photo-container">
+                    <img src="Videos/Captures/732102678_2235035670663717_2746329439490159950_n.jpg"
+                        alt="bonding moment">
+                    <div class="photo-overlay">
+                        <div class="photo-caption">Rose special day</div>
+                        <button class="like-btn">
+                            <span class="heart-icon">💙</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-card" data-aos="fade-up" data-delay="400">
+                <div class="photo-container">
+                    <img src="Videos/Captures/765247363_1744979496740957_344556332193397178_n.jpg"
+                        alt="happy">
+                    <div class="photo-overlay">
+                        <div class="photo-caption">Sleepover</div>
+                        <button class="like-btn">
+                            <span class="heart-icon">💖</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-card" data-aos="fade-up" data-delay="500">
+                <div class="photo-container">
+                    <img src="Videos/Captures/767702475_1009999385328001_1508820490867451646_n.jpg"
+                        alt= "beatiful moment">
+                    <div class="photo-overlay">
+                        <div class="photo-caption">Night swimming part 2</div>
+                        <button class="like-btn">
+                            <span class="heart-icon">💙</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-card" data-aos="fade-up" data-delay="600">
+                <div class="photo-container">
+                    <img src="Videos/Captures/ce51e2da-14dd-4ee5-a7c8-de737ec0c2b1.jpeg"
+                        alt="trio cutiepies">
+                    <div class="photo-overlay">
+                        <div class="photo-caption">mirror shot</div>
+                        <button class="like-btn">
+                            <span class="heart-icon">💖</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   
+
+<section class="message-section" id="message">
+    <div class="container">
+        <input type="checkbox" id="message-toggle" class="message-toggle">
+        <a class="envelope" href="#message-preview">
+            <span>Open the letter</span>
+            <div class="paper">click me again :&gt;</div>
+        </a>
+        <div class="message-card" id="message-preview">
+            <div class="letter-sheet">
+                <h2 class="message-title">A Special Message for you!!</h2>
+                <div class="message-content">
+                <p class="message-text fade-in-text">
+                    on this special day, i want to tell you how much you mean to both me and rose.
+                    your pressence in our lives has brought joy,comfort,and love most of all your always there
+                     for us and we are so gratefull for that.therefore we promise to also be there for you in every way possible. 
+                </p>
+                <p class="message-text fade-in-text">
+                    we hope this special day of yours is filled with love,courage,and happiness.
+                 may out trio stay strong and continue to grow in love and friendshipship. we are so lucky to have you in our lives and
+                  we look forward to many more special moments together. and may we all succeed in our dreams and goals.
+                </p>
+                <p class="message-text fade-in-text">
+                    once again happy birthday baby luna! we love you so much and we are so proud of you.
+                </p>
+            </div>
+            <div class="message-hearts">
+                <span class="heart-animation">💙</span>
+                <span class="heart-animation">💖</span>
+                <span class="heart-animation">💙</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="container">
+        <p class="footer-text">Made with 💙 by Ferg and Rose!!</p>
+    </div>
+</footer>
+<script>
+    const envelope = document.querySelector('.envelope');
+    const toggle = document.getElementById('message-toggle');
+    const messagePreview = document.getElementById('message-preview');
+    if (envelope && messagePreview) {
+        envelope.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (toggle && !toggle.checked) {
+                toggle.checked = true;
+            }
+            messagePreview.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+</script>
+</body>
+
+</html>
